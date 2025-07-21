@@ -1,0 +1,33 @@
+                            #Project 01- Speak Robo
+
+from gtts import gTTS
+import pygame
+import time
+import os
+
+# Initialize pygame mixer
+pygame.mixer.init()
+
+while True:
+    text = input("🤖 Type something (or 'exit' to quit): ")
+    if text.lower() == 'exit':
+        print("Goodbye!")
+        break
+
+    # Convert text to speech and save as mp3
+    tts = gTTS(text=text, lang='en')
+    filename = "temp_audio.mp3"
+    tts.save(filename)
+
+    # Load and play the mp3 using pygame
+    pygame.mixer.music.load(filename)
+    pygame.mixer.music.play()
+
+    # Wait for audio to finish
+    while pygame.mixer.music.get_busy():
+        time.sleep(0.1)
+
+    # Optionally delete file
+    pygame.mixer.music.stop()
+    pygame.mixer.music.unload()
+    os.remove(filename)
