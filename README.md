@@ -15,7 +15,6 @@ A beginner-friendly Python project that converts user-input text into speech usi
 - Plays voice output using pygame
 - Deletes temporary audio after use
 - Simple command-line interface
-
 ---
 
 ## 🛠️ Technologies Used
