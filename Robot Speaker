@@ -1,4 +1,4 @@
-                            #Project 01- Speak Robo
+                            #Project 01- Speak Robo (Using Google text to speech gTTS)
 
 from gtts import gTTS
 import pygame
@@ -31,3 +31,21 @@ while True:
     pygame.mixer.music.stop()
     pygame.mixer.music.unload()
     os.remove(filename)
+
+
+
+                                      #Speak Robo (Using pywin32 system build-in speech function)
+
+import win32com.client as wincom
+import time
+
+speak = wincom.Dispatch("SAPI.SpVoice")
+
+while True:
+  text = input("Type Something (or 'exit' to quit): ")
+  if text.lower() == 'exit':
+    print("Good Bye!")
+    break
+
+  speak.Speak(text)
+  time.sleep(0.1)
