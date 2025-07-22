@@ -1,0 +1,45 @@
+                                        #Project 02: Real-Time Weather Report with speak Feature
+
+import requests
+import json
+import win32com.client as wincom
+import time
+
+speak = wincom.Dispatch("SAPI.SpVoice")
+
+while True:
+    city = input("Enter the name of the city: ")
+    if city.lower() == "exit":
+        speak.Speak("Goodbye!")
+        break
+
+    url = f'http://api.weatherapi.com/v1/current.json?key=0c283e4086c44c01832183807252207&q={city}'
+    
+    r = requests.get(url)
+    wdic = json.loads(r.text)
+
+# Extract values individually
+    temp_c = wdic["current"]["temp_c"]
+    temp_f = wdic["current"]["temp_f"]
+    wind = wdic["current"]["wind_mph"]
+    humidity = wdic["current"]["humidity"]
+    cloud = wdic["current"]["cloud"]
+
+# Print & Speak the report
+    report = (
+        f"Current weather in {city} is-\n"
+        f"Temperature: {temp_c}°C / {temp_f}°F\n"
+        f"Wind Speed: {wind} mph\n"
+        f"Humidity: {humidity}%\n"
+        f"Cloud Cover: {cloud}%"
+    )
+    try:
+        print(report)
+        speak.Speak(f"The temperature is {temp_c} degree Celsius in {city} "
+                f"wind speed of {wind} miles per hour with {humidity} percent humidity and {cloud} Cloud Cover.")
+
+    except KeyError:
+        print("Invalid city name or API error!")
+        speak.Speak("Sorry, I could not find the weather for that city.")
+
+    time.sleep(0.1)
