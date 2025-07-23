@@ -1,0 +1,34 @@
+from PIL import Image
+import os
+
+print("\n\t🖼️  Welcome to Image Resizer Tool")
+print("\tType 'exit' anytime to quit.\n")
+
+while True:
+    image_name = input("Enter image filename (e.g., photo.jpg): ")
+
+    if image_name.lower() == "exit":
+        print("Exiting... Goodbye!")
+        break
+
+    if not os.path.exists(image_name):
+        print("❌ File not found! Make sure it's in the same folder.")
+        continue
+
+    try:
+        width = int(input("Enter new width: "))
+        height = int(input("Enter new height: "))
+        
+        img = Image.open(image_name)
+        resized_img = img.resize((width, height))
+        
+        base_name, ext = os.path.splitext(image_name)
+        new_image_name = f"{base_name}_resized {ext}"
+
+        New_image = Image.open(new_image_name) #to show the New "Resized Image"
+        New_image.show()
+
+        print(f"✅ Image resized and saved as: {new_image_name}\n")
+
+    except Exception as e:
+        print(f"⚠️ Error: {e}\n")
