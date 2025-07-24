@@ -24,6 +24,7 @@ while True:
         
         base_name, ext = os.path.splitext(image_name)
         new_image_name = f"{base_name}_resized {ext}"
+        resized_img.save(new_image_name)
 
         New_image = Image.open(new_image_name) #to show the New "Resized Image"
         New_image.show()
